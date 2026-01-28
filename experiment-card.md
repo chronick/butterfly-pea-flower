@@ -29,6 +29,8 @@ An indicator changes color to show if something is an acid or base. Butterfly pe
 - Dramatic, vivid color changes
 - Quick to prepare (just steep in hot water)
 
+> **From the Garden:** Can't find butterfly pea flowers? No problem! Blueberries, blackberries, beets, and rose petals all contain anthocyanins and work as pH indicators too. Blend and strain, or simmer in water to extract the color. A great way to use overripe produce!
+
 ---
 
 ## Materials

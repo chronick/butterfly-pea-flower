@@ -480,6 +480,11 @@ main {
   border-left-color: #ef4444;
 }
 
+.green-note {
+  background: #dcfce7;
+  border-left-color: #22c55e;
+}
+
 /* Colors */
 .color-blue { color: var(--color-blue); }
 .color-pink { color: var(--color-pink); }

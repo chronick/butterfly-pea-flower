@@ -181,6 +181,9 @@ function renderRecipe() {
           <li>White paper backdrop</li>
         </ul>
         <p class="small-text" style="margin-top: 0.5rem;"><strong>Where to buy flowers:</strong> Asian grocery stores, Amazon, tea shops. A 1oz bag = 10+ experiments.</p>
+        <div class="note green-note">
+          <strong>From the Garden:</strong> Blueberries, blackberries, beets, and rose petals also contain anthocyanins and work as pH indicators. Blend and strain, or simmer in water to extract the color. A great way to use overripe produce!
+        </div>
       </div>
     </div>
   `;
