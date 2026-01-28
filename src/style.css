@@ -20,12 +20,13 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.6;
-  padding: 2rem;
+  line-height: 1.5;
+  padding: 1rem;
+  font-size: 14px;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 8.5in;
   margin: 0 auto;
   background: var(--color-card);
   border-radius: 12px;
@@ -36,72 +37,203 @@ body {
 .header {
   background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-purple) 100%);
   color: white;
-  padding: 2rem;
-  text-align: center;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .header h1 {
-  font-size: 1.75rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  margin: 0;
 }
 
 .header-meta {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
 }
 
 .badge {
   background: rgba(255, 255, 255, 0.2);
-  padding: 0.25rem 0.75rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 }
 
 .print-btn {
   background: white;
   color: var(--color-blue);
   border: none;
-  padding: 0.5rem 1.5rem;
+  padding: 0.4rem 1rem;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s;
+  font-size: 0.875rem;
 }
 
 .print-btn:hover {
   transform: scale(1.05);
 }
 
+/* Page Layout */
+.page {
+  padding: 1.5rem;
+  min-height: calc(11in - 80px);
+}
+
+.page-student {
+  background: white;
+}
+
+.page-teacher {
+  background: #f8fafc;
+  border-top: 3px solid var(--color-purple);
+}
+
 main {
-  padding: 2rem;
+  padding: 0;
 }
 
 /* Section Styling */
 .section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-compact {
+  margin-bottom: 0.75rem;
 }
 
 .section-title {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--color-blue);
   border-bottom: 2px solid var(--color-border);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .section-content {
-  padding-left: 0.5rem;
+  padding-left: 0.25rem;
 }
 
-/* Step Styling */
+/* Big Idea Box */
+.big-idea {
+  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.big-idea h2 {
+  color: var(--color-blue);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.big-idea p {
+  font-size: 0.95rem;
+}
+
+/* pH Scale Diagram */
+.ph-scale {
+  margin: 0.5rem 0;
+}
+
+.ph-bar {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 32px;
+}
+
+.ph-segment {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.ph-segment.acid-strong { background: #ef4444; }
+.ph-segment.acid-medium { background: #f97316; }
+.ph-segment.acid-weak { background: #facc15; color: #1f2937; text-shadow: none; }
+.ph-segment.neutral { background: #22c55e; }
+.ph-segment.base-weak { background: #06b6d4; }
+.ph-segment.base-medium { background: #3b82f6; }
+.ph-segment.base-strong { background: #7c3aed; }
+
+.ph-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  padding: 0 0.5rem;
+}
+
+.ph-label-group {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.ph-label-text {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.ph-arrow {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+.ph-examples {
+  position: relative;
+  height: 50px;
+  margin-top: 0.5rem;
+}
+
+.ph-example {
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.ph-example-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 auto 0.25rem;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.ph-example-dot.acid { background: #f97316; }
+.ph-example-dot.neutral { background: #22c55e; }
+.ph-example-dot.base { background: #06b6d4; }
+
+/* Steps */
+.intro-text {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.experiment-steps {
+  margin-bottom: 1rem;
+}
+
 .step {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+  padding: 0.6rem;
   background: var(--color-bg);
   border-radius: 8px;
 }
@@ -110,45 +242,208 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 1.75rem;
+  height: 1.75rem;
   background: var(--color-blue);
   color: white;
   border-radius: 50%;
   font-weight: 600;
   flex-shrink: 0;
+  font-size: 0.875rem;
 }
 
 .step-content {
   flex: 1;
+  font-size: 0.9rem;
 }
 
-/* Ingredients */
-.ingredient {
-  color: var(--color-pink);
+/* Prediction Box */
+.prediction-box {
+  background: #fef3c7;
+  border: 2px dashed #f59e0b;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.prediction-box h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #b45309;
+}
+
+.prediction-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.prediction-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.prediction-label {
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
-/* Equipment */
-.equipment {
+.prediction-blank {
+  flex: 1;
+  height: 1.5rem;
+  border-bottom: 2px solid #d97706;
+}
+
+/* Wow Section */
+.wow-section {
+  background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+.wow-section .section-title {
   color: var(--color-purple);
-  font-weight: 600;
+  border-bottom-color: #e9d5ff;
 }
 
-/* Timer */
-.timer {
+.color-shift-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.shift-cup {
+  width: 36px;
+  height: 48px;
+  border-radius: 0 0 18px 18px;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-top: none;
+}
+
+.shift-cup.pink { background: linear-gradient(to bottom, #f472b6, #ec4899); }
+.shift-cup.purple { background: linear-gradient(to bottom, #a78bfa, #8b5cf6); }
+.shift-cup.blue { background: linear-gradient(to bottom, #60a5fa, #3b82f6); }
+.shift-cup.green { background: linear-gradient(to bottom, #4ade80, #22c55e); }
+
+.shift-arrow {
+  font-size: 1.25rem;
+  color: var(--color-purple);
+  font-weight: bold;
+}
+
+.wow-question {
+  font-size: 0.85rem;
+  text-align: center;
+  color: #6b21a8;
+}
+
+/* Teacher Page */
+.teacher-header {
+  font-size: 1.25rem;
+  color: var(--color-purple);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-purple);
+}
+
+.teacher-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.teacher-col {
+  min-width: 0;
+}
+
+.prep-steps {
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+}
+
+.prep-steps li {
+  margin-bottom: 0.25rem;
+}
+
+/* Compact Materials List */
+.materials-list-compact {
+  list-style: none;
+  font-size: 0.8rem;
+  columns: 2;
+  column-gap: 1rem;
+}
+
+.materials-list-compact li {
+  padding: 0.15rem 0;
+}
+
+.materials-list-compact li::before {
+  content: "• ";
   color: var(--color-green);
-  font-weight: 600;
 }
 
-/* Comment/Note Styling */
+/* Compact Results Table */
+.results-table-compact {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.results-table-compact th,
+.results-table-compact td {
+  border: 1px solid var(--color-border);
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+}
+
+.results-table-compact th {
+  background: #e5e7eb;
+  font-size: 0.75rem;
+}
+
+/* Discussion List */
+.discussion-list {
+  list-style: none;
+  font-size: 0.8rem;
+}
+
+.discussion-list li {
+  margin-bottom: 0.3rem;
+}
+
+/* Vocab Grid */
+.vocab-grid {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+
+/* Safety List */
+.safety-list {
+  list-style: none;
+  font-size: 0.8rem;
+}
+
+.safety-list li {
+  padding: 0.15rem 0;
+}
+
+.safety-list li::before {
+  content: "✓ ";
+  color: var(--color-green);
+}
+
+/* Notes */
 .note {
   background: #fef3c7;
-  border-left: 4px solid #f59e0b;
-  padding: 0.75rem 1rem;
-  margin: 0.75rem 0;
-  font-size: 0.9rem;
-  border-radius: 0 8px 8px 0;
+  border-left: 3px solid #f59e0b;
+  padding: 0.4rem 0.6rem;
+  margin: 0.5rem 0;
+  font-size: 0.8rem;
+  border-radius: 0 6px 6px 0;
 }
 
 .safety-note {
@@ -156,76 +451,34 @@ main {
   border-left-color: #ef4444;
 }
 
-.tip-note {
-  background: #dbeafe;
-  border-left-color: var(--color-blue);
-}
-
-/* Results Table */
-.results-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-}
-
-.results-table th,
-.results-table td {
-  border: 1px solid var(--color-border);
-  padding: 0.75rem;
-  text-align: left;
-}
-
-.results-table th {
-  background: var(--color-bg);
-  font-weight: 600;
-}
-
-.results-table tr:nth-child(even) {
-  background: var(--color-bg);
-}
-
-/* Color indicators */
+/* Colors */
 .color-blue { color: var(--color-blue); }
 .color-pink { color: var(--color-pink); }
 .color-green { color: var(--color-green); }
 .color-purple { color: var(--color-purple); }
 
-/* Vocabulary */
-.vocab-term {
-  font-weight: 600;
-  color: var(--color-purple);
+.small-text {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
 }
 
-/* Materials List */
-.materials-list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 0.5rem;
-}
-
-.materials-list li {
-  padding: 0.5rem;
-  background: var(--color-bg);
-  border-radius: 4px;
-}
-
-.materials-list li::before {
-  content: "✓ ";
-  color: var(--color-green);
-  font-weight: bold;
-}
-
-/* Print styles */
+/* Print Styles */
 @media print {
+  @page {
+    size: letter;
+    margin: 0.5in;
+  }
+
   body {
     padding: 0;
     background: white;
+    font-size: 12px;
   }
 
   .container {
     box-shadow: none;
     border-radius: 0;
+    max-width: none;
   }
 
   .no-print {
@@ -233,6 +486,37 @@ main {
   }
 
   .header {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding: 0.75rem 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.25rem;
+  }
+
+  .page {
+    padding: 1rem;
+    min-height: auto;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  .page-teacher {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .big-idea,
+  .wow-section,
+  .ph-bar,
+  .ph-segment,
+  .shift-cup,
+  .prediction-box {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -246,47 +530,19 @@ main {
   }
 }
 
-/* Big Idea Box */
-.big-idea {
-  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  text-align: center;
-}
+/* Screen-only: add visual page break indicator */
+@media screen {
+  .page-teacher {
+    margin-top: 2rem;
+    border-radius: 12px;
+  }
 
-.big-idea h2 {
-  color: var(--color-blue);
-  margin-bottom: 0.5rem;
-}
-
-/* Expected Results Visual */
-.color-demo {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin: 1.5rem 0;
-}
-
-.color-cup {
-  text-align: center;
-}
-
-.cup-visual {
-  width: 60px;
-  height: 80px;
-  border-radius: 0 0 30px 30px;
-  border: 3px solid #ccc;
-  border-top: none;
-  margin: 0 auto 0.5rem;
-}
-
-.cup-visual.blue { background: linear-gradient(to bottom, #60a5fa, #3b82f6); }
-.cup-visual.pink { background: linear-gradient(to bottom, #f472b6, #ec4899); }
-.cup-visual.green { background: linear-gradient(to bottom, #4ade80, #22c55e); }
-
-.cup-label {
-  font-size: 0.75rem;
-  font-weight: 600;
+  .page-teacher::before {
+    content: "Page 2 - Print to see page break";
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+  }
 }

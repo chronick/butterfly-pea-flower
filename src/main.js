@@ -1,223 +1,225 @@
-import { Recipe } from 'cooklang';
-
-// Fetch and parse the cooklang recipe
-async function loadRecipe() {
-  const response = await fetch('/butterfly-pea-flower-experiment.cook');
-  const text = await response.text();
-  const recipe = new Recipe(text);
-  return { recipe, rawText: text };
-}
-
-// Render ingredient with styling
-function renderIngredient(ingredient) {
-  const qty = ingredient.quantity ? `${ingredient.quantity}` : '';
-  const unit = ingredient.units ? ` ${ingredient.units}` : '';
-  return `<span class="ingredient">${ingredient.name}${qty ? ` (${qty}${unit})` : ''}</span>`;
-}
-
-// Render equipment with styling
-function renderEquipment(equipment) {
-  return `<span class="equipment">${equipment.name}</span>`;
-}
-
-// Render timer with styling
-function renderTimer(timer) {
-  const qty = timer.quantity || '';
-  const unit = timer.units || '';
-  return `<span class="timer">${qty} ${unit}</span>`;
-}
-
-// Render a single step
-function renderStep(step, index) {
-  let html = '';
-
-  for (const item of step) {
-    if (item.type === 'text') {
-      html += item.value;
-    } else if (item.type === 'ingredient') {
-      html += renderIngredient(item);
-    } else if (item.type === 'cookware') {
-      html += renderEquipment(item);
-    } else if (item.type === 'timer') {
-      html += renderTimer(item);
-    }
-  }
-
-  return html;
-}
-
-// Parse comments from raw text to extract notes
-function extractComments(rawText) {
-  const comments = [];
-  const lines = rawText.split('\n');
-
-  for (const line of lines) {
-    const commentMatch = line.match(/^--\s*(.+)\s*--$/);
-    if (commentMatch) {
-      comments.push(commentMatch[1].trim());
-    }
-  }
-
-  return comments;
-}
-
-// Extract sections from raw text
-function extractSections(rawText) {
-  const sections = [];
-  const sectionRegex = /==\s*(.+?)\s*==/g;
-  let match;
-
-  while ((match = sectionRegex.exec(rawText)) !== null) {
-    sections.push(match[1]);
-  }
-
-  return sections;
-}
-
-// Main render function
-function renderRecipe(recipe, rawText) {
+// Main render function - two page layout
+function renderRecipe() {
   const container = document.getElementById('recipe-content');
 
-  // Build the HTML content
   let html = '';
+
+  // ==========================================
+  // PAGE 1: STUDENT PAGE
+  // ==========================================
+  html += `<div class="page page-student">`;
 
   // Big Idea Section
   html += `
     <div class="big-idea">
-      <h2>The Big Idea</h2>
-      <p>Butterfly pea flowers make a special blue tea that changes color like magic!
-      When you add something <strong class="color-pink">sour</strong> (an acid), it turns <strong class="color-pink">pink</strong>.
-      When you add something <strong class="color-green">slippery-feeling</strong> (a base), it turns <strong class="color-green">green</strong>.</p>
+      <h2>What Are We Discovering?</h2>
+      <p>Some liquids are <strong class="color-pink">sour</strong> (like lemon juice) and some feel <strong class="color-green">slippery</strong> (like soap). Scientists call sour things <strong>acids</strong> and slippery things <strong>bases</strong>.</p>
+      <p style="margin-top: 0.5rem;">Today we'll use magic color-changing tea to find out which is which!</p>
     </div>
   `;
 
-  // Color Demo
-  html += `
-    <div class="color-demo">
-      <div class="color-cup">
-        <div class="cup-visual blue"></div>
-        <div class="cup-label">Water<br>(Neutral)</div>
-      </div>
-      <div class="color-cup">
-        <div class="cup-visual pink"></div>
-        <div class="cup-label">Lemon Juice<br>(Acid)</div>
-      </div>
-      <div class="color-cup">
-        <div class="cup-visual green"></div>
-        <div class="cup-label">Baking Soda<br>(Base)</div>
-      </div>
-    </div>
-  `;
-
-  // Background Section
+  // pH Scale Diagram
   html += `
     <div class="section">
-      <h2 class="section-title">Background for Teachers</h2>
-      <div class="section-content">
-        <p><strong>What is pH?</strong> A scale from 0-14 that measures how acidic or basic a substance is:</p>
-        <ul>
-          <li><strong>0-6</strong> = Acidic (sour things like lemon juice)</li>
-          <li><strong>7</strong> = Neutral (plain water)</li>
-          <li><strong>8-14</strong> = Basic/Alkaline (slippery things like soap)</li>
-        </ul>
-        <p style="margin-top: 1rem;"><strong>What is an Indicator?</strong> Something that changes color to show if a liquid is an acid or base. Butterfly pea flowers contain <em>anthocyanin</em>, a natural blue pigment that changes color!</p>
+      <h2 class="section-title">The pH Scale</h2>
+      <div class="ph-scale">
+        <div class="ph-bar">
+          <div class="ph-segment acid-strong">0</div>
+          <div class="ph-segment acid-strong">1</div>
+          <div class="ph-segment acid-medium">2</div>
+          <div class="ph-segment acid-medium">3</div>
+          <div class="ph-segment acid-weak">4</div>
+          <div class="ph-segment acid-weak">5</div>
+          <div class="ph-segment acid-weak">6</div>
+          <div class="ph-segment neutral">7</div>
+          <div class="ph-segment base-weak">8</div>
+          <div class="ph-segment base-weak">9</div>
+          <div class="ph-segment base-medium">10</div>
+          <div class="ph-segment base-medium">11</div>
+          <div class="ph-segment base-strong">12</div>
+          <div class="ph-segment base-strong">13</div>
+          <div class="ph-segment base-strong">14</div>
+        </div>
+        <div class="ph-labels">
+          <div class="ph-label-group">
+            <span class="ph-arrow">←</span>
+            <span class="ph-label-text"><strong>ACIDS</strong><br>Sour taste</span>
+          </div>
+          <div class="ph-label-group">
+            <span class="ph-label-text"><strong>NEUTRAL</strong><br>Water</span>
+          </div>
+          <div class="ph-label-group">
+            <span class="ph-label-text"><strong>BASES</strong><br>Slippery feel</span>
+            <span class="ph-arrow">→</span>
+          </div>
+        </div>
+        <div class="ph-examples">
+          <div class="ph-example" style="left: 13%;">
+            <div class="ph-example-dot acid"></div>
+            <span>Lemon<br>pH 2</span>
+          </div>
+          <div class="ph-example" style="left: 47%;">
+            <div class="ph-example-dot neutral"></div>
+            <span>Water<br>pH 7</span>
+          </div>
+          <div class="ph-example" style="left: 57%;">
+            <div class="ph-example-dot base"></div>
+            <span>Baking Soda<br>pH 8</span>
+          </div>
+        </div>
       </div>
     </div>
   `;
 
-  // Materials Section
+  // Student Procedure
   html += `
     <div class="section">
-      <h2 class="section-title">Materials Needed</h2>
+      <h2 class="section-title">Your Experiment</h2>
       <div class="section-content">
-        <h3 style="margin-bottom: 0.5rem;">For the Indicator:</h3>
-        <ul class="materials-list">
-          <li>1 tbsp dried butterfly pea flowers (or 2 tea bags)</li>
+        <p class="intro-text">Your teacher has made special blue tea from butterfly pea flowers. This tea is a <strong>pH indicator</strong> – it changes color to show if something is an acid or a base!</p>
+
+        <div class="experiment-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <strong>Look at Cup 1</strong> – This is just the blue tea by itself. What color is it?
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <strong>Cup 2: Add Water</strong> – Predict: Will the color change? Add 1 spoonful of plain water and stir. What happened?
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <strong>Cup 3: Add Lemon Juice</strong> – Predict: What will the sour lemon do? Add 1 spoonful and stir. What color is it now?
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <strong>Cup 4: Add Baking Soda Water</strong> – Predict: What will happen? Add 1 spoonful and stir. What color did you get?
+            </div>
+          </div>
+        </div>
+
+        <div class="prediction-box">
+          <h3>My Predictions</h3>
+          <div class="prediction-grid">
+            <div class="prediction-item">
+              <span class="prediction-label">Water:</span>
+              <span class="prediction-blank"></span>
+            </div>
+            <div class="prediction-item">
+              <span class="prediction-label">Lemon Juice:</span>
+              <span class="prediction-blank"></span>
+            </div>
+            <div class="prediction-item">
+              <span class="prediction-label">Baking Soda:</span>
+              <span class="prediction-blank"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Wow Experiment (student version)
+  html += `
+    <div class="section wow-section">
+      <h2 class="section-title">Bonus: Magic Color Shift!</h2>
+      <div class="section-content">
+        <p>Want to see something amazing? Take your <strong>pink lemon juice cup</strong> and slowly add baking soda water, a little bit at a time.</p>
+        <div class="color-shift-visual">
+          <div class="shift-cup pink"></div>
+          <div class="shift-arrow">→</div>
+          <div class="shift-cup purple"></div>
+          <div class="shift-arrow">→</div>
+          <div class="shift-cup blue"></div>
+          <div class="shift-arrow">→</div>
+          <div class="shift-cup green"></div>
+        </div>
+        <p class="wow-question"><strong>Think about it:</strong> Why does the color keep changing? What's happening to the acid?</p>
+      </div>
+    </div>
+  `;
+
+  html += `</div>`; // End page-student
+
+  // ==========================================
+  // PAGE 2: TEACHER PAGE
+  // ==========================================
+  html += `<div class="page page-teacher">`;
+
+  html += `<h1 class="teacher-header">Teacher Guide</h1>`;
+
+  // Two-column layout for teacher page
+  html += `<div class="teacher-columns">`;
+
+  // Left column
+  html += `<div class="teacher-col">`;
+
+  // Prep Section
+  html += `
+    <div class="section section-compact">
+      <h2 class="section-title">Preparation (15 min before)</h2>
+      <div class="section-content">
+        <ol class="prep-steps">
+          <li>Boil <strong>2 cups water</strong></li>
+          <li>Add <strong>1 tbsp dried butterfly pea flowers</strong> (or 2 tea bags)</li>
+          <li>Steep <strong>5 minutes</strong> until deep blue</li>
+          <li>Remove flowers, cool <strong>10 minutes</strong></li>
+          <li>Pour ¼ cup indicator into each of 4 labeled cups</li>
+        </ol>
+        <div class="note safety-note">Handle hot water away from students!</div>
+      </div>
+    </div>
+  `;
+
+  // Materials
+  html += `
+    <div class="section section-compact">
+      <h2 class="section-title">Materials</h2>
+      <div class="section-content">
+        <ul class="materials-list-compact">
+          <li>1 tbsp dried butterfly pea flowers</li>
           <li>2 cups hot water</li>
-        </ul>
-        <h3 style="margin: 1rem 0 0.5rem;">For Testing:</h3>
-        <ul class="materials-list">
-          <li>1/4 cup plain water</li>
-          <li>1 fresh lemon (for juice)</li>
-          <li>1 tsp baking soda + 1/4 cup water</li>
-        </ul>
-        <h3 style="margin: 1rem 0 0.5rem;">Equipment:</h3>
-        <ul class="materials-list">
-          <li>4 clear cups or jars</li>
-          <li>Measuring cups/spoons</li>
-          <li>Spoons for stirring</li>
-          <li>Labels or marker</li>
-          <li>White paper (backdrop)</li>
+          <li>1 fresh lemon (squeezed)</li>
+          <li>1 tsp baking soda in ¼ cup water</li>
+          <li>4 clear cups + labels</li>
+          <li>Measuring spoons</li>
+          <li>Stirring spoons</li>
+          <li>White paper backdrop</li>
         </ul>
       </div>
     </div>
   `;
 
-  // Procedure Section
+  // Where to buy
   html += `
-    <div class="section">
-      <h2 class="section-title">Procedure</h2>
-      <div class="section-content">
-        <h3>Part 1: Make the Indicator (Teacher Prep)</h3>
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">Pour <span class="ingredient">2 cups hot water</span> into a heat-safe container</div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">Add <span class="ingredient">dried butterfly pea flowers (1 tbsp)</span> or tea bags</div>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-content">Steep for <span class="timer">5 minutes</span> until deep blue</div>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <div class="step-content">Remove flowers and cool for <span class="timer">10 minutes</span></div>
-        </div>
-        <div class="note safety-note">Adults should handle hot water!</div>
-
-        <h3 style="margin-top: 1.5rem;">Part 2: Run the Experiment</h3>
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">Label 4 <span class="equipment">clear cups</span>: "Blue Tea", "Water", "Lemon Juice", "Baking Soda"</div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">Pour 1/4 cup blue indicator into each cup</div>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-content"><strong>Cup 1:</strong> Leave alone (control) - stays <span class="color-blue">BLUE</span></div>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <div class="step-content"><strong>Cup 2:</strong> Add 1 tbsp plain water - stays <span class="color-blue">BLUE</span> (neutral)</div>
-        </div>
-        <div class="step">
-          <div class="step-number">5</div>
-          <div class="step-content"><strong>Cup 3:</strong> Add 1 tbsp <span class="ingredient">lemon juice</span> - turns <span class="color-pink">PINK</span> (acid!)</div>
-        </div>
-        <div class="step">
-          <div class="step-number">6</div>
-          <div class="step-content"><strong>Cup 4:</strong> Add 1 tbsp <span class="ingredient">baking soda solution</span> - turns <span class="color-green">GREEN</span> (base!)</div>
-        </div>
-        <div class="note tip-note">Ask students to predict what will happen BEFORE each test!</div>
-      </div>
+    <div class="section section-compact">
+      <h2 class="section-title">Where to Buy Flowers</h2>
+      <p class="small-text">Asian grocery stores, Amazon ("dried butterfly pea flowers"), tea shops. A 1oz bag = 10+ experiments.</p>
     </div>
   `;
 
-  // Results Table
+  html += `</div>`; // End left column
+
+  // Right column
+  html += `<div class="teacher-col">`;
+
+  // Expected Results
   html += `
-    <div class="section">
+    <div class="section section-compact">
       <h2 class="section-title">Expected Results</h2>
-      <table class="results-table">
+      <table class="results-table-compact">
         <thead>
           <tr>
             <th>Cup</th>
             <th>Added</th>
             <th>Type</th>
-            <th>pH</th>
             <th>Color</th>
           </tr>
         </thead>
@@ -226,28 +228,24 @@ function renderRecipe(recipe, rawText) {
             <td>1</td>
             <td>Nothing</td>
             <td>Control</td>
-            <td>~7</td>
             <td class="color-blue"><strong>Blue</strong></td>
           </tr>
           <tr>
             <td>2</td>
             <td>Water</td>
             <td>Neutral</td>
-            <td>7</td>
             <td class="color-blue"><strong>Blue</strong></td>
           </tr>
           <tr>
             <td>3</td>
-            <td>Lemon Juice</td>
+            <td>Lemon</td>
             <td>Acid</td>
-            <td>~2</td>
             <td class="color-pink"><strong>Pink</strong></td>
           </tr>
           <tr>
             <td>4</td>
             <td>Baking Soda</td>
             <td>Base</td>
-            <td>~8</td>
             <td class="color-green"><strong>Green</strong></td>
           </tr>
         </tbody>
@@ -255,99 +253,64 @@ function renderRecipe(recipe, rawText) {
     </div>
   `;
 
-  // Bonus Section
-  html += `
-    <div class="section">
-      <h2 class="section-title">Bonus: Reverse the Color!</h2>
-      <div class="section-content">
-        <p>This is the "wow" moment:</p>
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">Take Cup 3 (the <span class="color-pink">pink</span> lemon juice cup)</div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">Slowly add baking soda solution, a little at a time</div>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-content">Watch: <span class="color-pink">Pink</span> → <span class="color-purple">Purple</span> → <span class="color-blue">Blue</span> → <span class="color-green">Green</span></div>
-        </div>
-        <div class="note">This is called a <strong>neutralization reaction</strong> - the base cancels out the acid!</div>
-      </div>
-    </div>
-  `;
-
   // Discussion Questions
   html += `
-    <div class="section">
-      <h2 class="section-title">Discussion Questions</h2>
+    <div class="section section-compact">
+      <h2 class="section-title">Discussion Answers</h2>
       <div class="section-content">
-        <ol>
-          <li><strong>Why did lemon juice turn the tea pink?</strong><br>→ Because lemon juice is an ACID (it's sour!)</li>
-          <li style="margin-top: 0.75rem;"><strong>Why did baking soda turn the tea green?</strong><br>→ Because baking soda is a BASE (opposite of acid)</li>
-          <li style="margin-top: 0.75rem;"><strong>Why didn't water change the color?</strong><br>→ Because water is NEUTRAL (not acid, not base)</li>
-          <li style="margin-top: 0.75rem;"><strong>What other sour things might be acids?</strong><br>→ Vinegar, orange juice, soda, tomatoes</li>
-        </ol>
+        <ul class="discussion-list">
+          <li><strong>Why pink with lemon?</strong> Lemon is an acid (sour!)</li>
+          <li><strong>Why green with baking soda?</strong> It's a base (opposite of acid)</li>
+          <li><strong>Why no change with water?</strong> Water is neutral (pH 7)</li>
+          <li><strong>Bonus reaction?</strong> Base neutralizes the acid</li>
+        </ul>
       </div>
     </div>
   `;
 
   // Vocabulary
   html += `
-    <div class="section">
-      <h2 class="section-title">Key Vocabulary</h2>
-      <div class="section-content">
-        <ul>
-          <li><span class="vocab-term">Acid:</span> A substance that tastes sour and turns our tea PINK</li>
-          <li><span class="vocab-term">Base:</span> A substance that feels slippery and turns our tea GREEN</li>
-          <li><span class="vocab-term">pH:</span> A number that tells us how sour or slippery something is</li>
-          <li><span class="vocab-term">Indicator:</span> Something that changes color to show acid or base</li>
-          <li><span class="vocab-term">Neutral:</span> Not sour, not slippery – right in the middle (like water)</li>
-          <li><span class="vocab-term">Anthocyanin:</span> The special blue color in butterfly pea flowers</li>
-        </ul>
+    <div class="section section-compact">
+      <h2 class="section-title">Key Terms</h2>
+      <div class="vocab-grid">
+        <div><strong>Acid:</strong> Sour, turns tea pink</div>
+        <div><strong>Base:</strong> Slippery, turns tea green</div>
+        <div><strong>pH:</strong> Scale measuring acid/base (0-14)</div>
+        <div><strong>Indicator:</strong> Changes color to show pH</div>
+        <div><strong>Neutral:</strong> Neither acid nor base (pH 7)</div>
       </div>
     </div>
   `;
 
   // Safety
   html += `
-    <div class="section">
-      <h2 class="section-title">Safety Notes</h2>
-      <div class="section-content">
-        <ul class="materials-list">
-          <li>All materials are non-toxic and safe</li>
-          <li>Safe for ages 3+ with adult supervision</li>
-          <li>Adults should handle hot water</li>
-          <li>Don't drink after adding baking soda</li>
-          <li>Wash hands after experiment</li>
-        </ul>
-      </div>
+    <div class="section section-compact">
+      <h2 class="section-title">Safety</h2>
+      <ul class="safety-list">
+        <li>All materials non-toxic & taste-safe</li>
+        <li>Adults handle hot water</li>
+        <li>Don't drink after adding baking soda</li>
+        <li>Wash hands after experiment</li>
+      </ul>
     </div>
   `;
+
+  html += `</div>`; // End right column
+  html += `</div>`; // End teacher-columns
+
+  html += `</div>`; // End page-teacher
 
   container.innerHTML = html;
 }
 
 // Initialize
-async function init() {
-  try {
-    const { recipe, rawText } = await loadRecipe();
-    console.log('Parsed recipe:', recipe);
-    renderRecipe(recipe, rawText);
+function init() {
+  renderRecipe();
 
-    // Set up print button
-    document.getElementById('print-btn').addEventListener('click', () => {
-      window.print();
-    });
-  } catch (error) {
-    console.error('Error loading recipe:', error);
-    document.getElementById('recipe-content').innerHTML = `
-      <div class="note safety-note">
-        Error loading recipe. Make sure butterfly-pea-flower-experiment.cook exists.
-      </div>
-    `;
-  }
+  // Set up print button
+  document.getElementById('print-btn').addEventListener('click', () => {
+    window.print();
+  });
 }
 
 init();
