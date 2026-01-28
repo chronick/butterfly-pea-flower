@@ -495,13 +495,14 @@ main {
 @media print {
   @page {
     size: letter;
-    margin: 0.5in;
+    margin: 0.4in 0.5in;
   }
 
   body {
     padding: 0;
     background: white;
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 1.35;
   }
 
   .container {
@@ -517,25 +518,32 @@ main {
   .header {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .header h1 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
 
-  .page {
-    padding: 1rem;
+  .badge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+  }
+
+  /* Student page - must fit on page 1 */
+  .page-student {
+    padding: 0.75rem;
     min-height: auto;
     page-break-after: always;
     page-break-inside: avoid;
   }
 
-  .page:last-child {
-    page-break-after: auto;
-  }
-
+  /* Teacher page - starts on page 2 */
   .page-teacher {
+    padding: 0.75rem;
+    min-height: auto;
+    page-break-before: always;
+    page-break-after: auto;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -550,12 +558,187 @@ main {
     print-color-adjust: exact;
   }
 
+  /* Compact sections for print */
   .section {
-    page-break-inside: avoid;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-compact {
+    margin-bottom: 0.4rem;
+  }
+
+  .section-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    padding-bottom: 0.15rem;
+  }
+
+  .big-idea {
+    padding: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .big-idea h2 {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .big-idea p {
+    font-size: 0.85rem;
+  }
+
+  /* Compact pH scale */
+  .ph-callouts-above {
+    height: 35px;
+  }
+
+  .ph-callout-text {
+    font-size: 0.6rem;
+  }
+
+  .ph-bar {
+    height: 26px;
+  }
+
+  .ph-segment {
+    font-size: 0.6rem;
+  }
+
+  .ph-labels {
+    margin-top: 0.3rem;
+  }
+
+  .ph-label-group {
+    font-size: 0.65rem;
+  }
+
+  /* Compact steps */
+  .intro-text {
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
   }
 
   .step {
-    page-break-inside: avoid;
+    padding: 0.35rem 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .step-number {
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 0.75rem;
+  }
+
+  .step-content {
+    font-size: 0.8rem;
+  }
+
+  /* Compact prediction box */
+  .prediction-box {
+    padding: 0.5rem;
+  }
+
+  .prediction-box h3 {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .prediction-label {
+    font-size: 0.7rem;
+  }
+
+  .prediction-blank {
+    height: 1.2rem;
+  }
+
+  /* Compact wow section */
+  .wow-section {
+    padding: 0.6rem;
+  }
+
+  .wow-section p {
+    font-size: 0.8rem;
+  }
+
+  .color-shift-visual {
+    margin: 0.4rem 0;
+  }
+
+  .shift-cup {
+    width: 28px;
+    height: 38px;
+  }
+
+  .wow-question {
+    font-size: 0.75rem;
+  }
+
+  /* Teacher page compacting */
+  .teacher-header {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .teacher-columns {
+    gap: 1rem;
+  }
+
+  .materials-list-compact {
+    font-size: 0.7rem;
+  }
+
+  .prep-steps {
+    font-size: 0.75rem;
+    padding-left: 1rem;
+  }
+
+  .prep-steps li {
+    margin-bottom: 0.15rem;
+  }
+
+  .results-table-compact {
+    font-size: 0.7rem;
+  }
+
+  .results-table-compact th,
+  .results-table-compact td {
+    padding: 0.2rem 0.35rem;
+  }
+
+  .results-table-compact th {
+    font-size: 0.65rem;
+  }
+
+  .discussion-list {
+    font-size: 0.7rem;
+  }
+
+  .discussion-list li {
+    margin-bottom: 0.15rem;
+  }
+
+  .vocab-grid {
+    font-size: 0.7rem;
+    gap: 0.15rem;
+  }
+
+  .safety-list {
+    font-size: 0.7rem;
+  }
+
+  .safety-caution {
+    font-size: 0.7rem;
+  }
+
+  .note {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.7rem;
+    margin: 0.3rem 0;
+  }
+
+  .small-text {
+    font-size: 0.65rem;
   }
 }
 
