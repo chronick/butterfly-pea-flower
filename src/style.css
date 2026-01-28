@@ -534,16 +534,13 @@ main {
   .page-student {
     padding: 0.75rem;
     min-height: auto;
-    page-break-after: always;
-    page-break-inside: avoid;
   }
 
   /* Teacher page - starts on page 2 */
   .page-teacher {
     padding: 0.75rem;
     min-height: auto;
-    page-break-before: always;
-    page-break-after: auto;
+    break-before: page;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
