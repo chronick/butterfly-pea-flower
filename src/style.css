@@ -139,6 +139,7 @@ main {
 
 /* pH Scale Diagram */
 .ph-scale {
+  position: relative;
   margin: 0.5rem 0;
 }
 
@@ -147,6 +148,7 @@ main {
   border-radius: 8px;
   overflow: hidden;
   height: 32px;
+  position: relative;
 }
 
 .ph-segment {
@@ -171,7 +173,7 @@ main {
 .ph-labels {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   padding: 0 0.5rem;
 }
 
@@ -182,42 +184,63 @@ main {
   font-size: 0.75rem;
 }
 
+.ph-label-center {
+  flex: 1;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .ph-label-text {
   text-align: center;
   line-height: 1.2;
 }
 
 .ph-arrow {
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: var(--color-text-muted);
+  font-weight: 300;
 }
 
-.ph-examples {
+/* pH Callouts above the bar */
+.ph-callouts-above {
   position: relative;
-  height: 50px;
-  margin-top: 0.5rem;
+  height: 45px;
+  margin-bottom: 0;
 }
 
-.ph-example {
+.ph-callout {
   position: absolute;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bottom: 0;
+}
+
+.ph-callout-lemon {
+  /* Position above the "2" segment (3rd segment = index 2, center at 2.5) */
+  left: calc((2.5 / 15) * 100%);
   transform: translateX(-50%);
+}
+
+.ph-callout-baking-soda {
+  /* Position above the "8" segment (9th segment = index 8, center at 8.5) */
+  left: calc((8.5 / 15) * 100%);
+  transform: translateX(-50%);
+}
+
+.ph-callout-line {
+  width: 2px;
+  height: 12px;
+  background: var(--color-text);
+}
+
+.ph-callout-text {
   font-size: 0.7rem;
   line-height: 1.2;
+  text-align: center;
+  margin-bottom: 0.2rem;
+  font-weight: 500;
 }
-
-.ph-example-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin: 0 auto 0.25rem;
-  border: 2px solid white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-}
-
-.ph-example-dot.acid { background: #f97316; }
-.ph-example-dot.neutral { background: #22c55e; }
-.ph-example-dot.base { background: #06b6d4; }
 
 /* Steps */
 .intro-text {
@@ -378,6 +401,7 @@ main {
 
 .materials-list-compact li {
   padding: 0.15rem 0;
+  break-inside: avoid;
 }
 
 .materials-list-compact li::before {
@@ -434,6 +458,11 @@ main {
 .safety-list li::before {
   content: "✓ ";
   color: var(--color-green);
+}
+
+.safety-caution {
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
 }
 
 /* Notes */
