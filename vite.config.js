@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
   // Base path for GitHub Pages deployment
@@ -7,5 +8,13 @@ export default defineConfig({
   assetsInclude: ['**/*.cook'],
   server: {
     open: true
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        recipe: resolve(__dirname, 'recipe-card.html')
+      }
+    }
   }
 });

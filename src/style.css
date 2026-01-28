@@ -63,6 +63,12 @@ body {
   font-size: 0.75rem;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 .print-btn {
   background: white;
   color: var(--color-blue);
@@ -76,6 +82,22 @@ body {
 
 .print-btn:hover {
   transform: scale(1.05);
+}
+
+.recipe-link {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: background 0.2s;
+}
+
+.recipe-link:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Page Layout */
